@@ -1,0 +1,11 @@
+{% extends "blog/base.html" %}
+{% block title %}{{ post.title }}{% endblock %}
+{% block content %}
+<div class="container px-4 py-8 mx-auto">
+    <h1 class="mb-1 text-3xl">{{ post.title }}</h1>
+    <p class="mt-0 mb-4 text-sm text-gray-500">
+        Published {{ post.publish }} by {{ post.author }}
+    </p>
+    <p class="leading-relaxed">{{ post.body|linebreaks }}</p>
+</div>
+{% endblock %}
