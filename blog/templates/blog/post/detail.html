@@ -1,20 +1,41 @@
 {% extends "blog/base.html" %}
 {% block title %}{{ post.title }}{% endblock %}
 {% block content %}
-<div class="container px-4 py-8 mx-auto">
-    <h1 class="mb-1 text-3xl">{{ post.title }}</h1>
-    <p class="mt-0 mb-4 text-sm text-gray-500">
+<div class="container w-5/6 px-4 py-8 mx-auto ml-auto mr-auto">
+    <h1 class="mb-2 text-3xl text-center">{{ post.title }}</h1>
+    <p class="mt-0 mb-4 text-sm text-center text-gray-500">
         Published {{ post.publish }} by {{ post.author }}
     </p>
-    <p class="leading-relaxed">{{ post.body|linebreaks }}</p>
-    <p class="mt-2 mb-2">
-        <a class="inline-flex items-center mt-4 text-indigo-500" href="{% url "blog:post_share" post.id %}">
+    <p class="text-sm leading-relaxed">{{ post.body|linebreaks }}</p>
+    <div class="flex items-center justify-center mt-10">
+    <p class="mx-3">
+        <a class="inline-flex items-center px-2 py-2 text-white bg-green-300 rounded-full shadow" href="{% url "blog:post_share" post.id %}">
         Share this post
         <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
           <path d="M5 12h14"></path>
           <path d="M12 5l7 7-7 7"></path>
         </svg>
         </a>
+    </p>
+      {% with comments.count as total_comments %}
+      <h2 class="px-2 py-2 text-sm text-white bg-red-300 rounded-full shadow ">
+      {{ total_comments }} comment{{ total_comments|pluralize }}
+      </h2>
+    </div>
+      {% endwith %}
+      <div class="w-full mt-8 ml-auto mr-auto lg:w-6/6 body-font">
+        {% for comment in comments %}
+      <div class="px-3 py-3 mb-2 text-gray-700 bg-gray-100 rounded-lg shadow">
+      <p class="px-2 py-2 mt-4 text-sm">
+      {{ comment.name }} <br/>
+      {{ comment.created }}
       </p>
+      <br class="mt-1"/>
+      {{ comment.body|linebreaks }}
+      </div>
+      {% empty %}
+      <p class="text-lg">There are no comments yet.</p>
+      {% endfor %}
+      </div>
 </div>
 {% endblock %}
