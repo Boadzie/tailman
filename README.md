@@ -1,5 +1,7 @@
 # Tailman
 
+![Tailman](./Tailman-Django.gif)
+
 Django Blog with the following Feature:
 
 1. Authentication
